@@ -12,7 +12,7 @@ Dump a MySQL db hosted on RDS and run locally inside a container
   - `DB_USER`
   - `DB_PASS`
   - `DB_NAME`
-  -`MYSQL_ROOT_PASSWORD`
+  - `MYSQL_ROOT_PASSWORD`
 
 Clone the repo and `chmod +x dump-n-run.sh`
 
