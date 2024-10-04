@@ -34,8 +34,9 @@ A default image and container name is provided, but you can change it with the `
 
 # If you want to run that container again
 ./dump-n-run.sh -c mylocalsql-cont --run-only
-
 ```
+
+Now the MySQL server is running locally at port localhost:3306! But we are not finished...
 
 **Database use**
 
