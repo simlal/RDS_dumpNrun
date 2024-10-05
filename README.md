@@ -1,5 +1,6 @@
-# MySQL-AWS_dumpNrun
-Dump a MySQL db hosted on RDS and run locally inside a container
+# RDS_dumpNrun
+
+Dump a MySQL RDS database into a Docker container that can be ran for local dev
 
 ## Installation
 
@@ -36,7 +37,9 @@ A default image and container name is provided, but you can change it with the `
 ./dump-n-run.sh -c mylocalsql-cont --run-only
 ```
 
-Now the MySQL server is running locally at port localhost:3306! But we are not finished...
+`no-cache-build` flag is used when you want the latest dump of your db, otherwise the layer is cached and not rebuilt when building the container.
+
+At the end of the execution, you have the MySQL server running locally at port localhost:3306! But we are not finished...
 
 **Database use**
 
@@ -57,3 +60,5 @@ mysql> use mydbname;
 mysql> exit
 exit
 ```
+
+Don't forget to stop the container when your done.
