@@ -14,8 +14,8 @@ RUN --mount=type=secret,id=aws,target=/root/.aws/credentials \
     --mount=type=secret,id=db-password,env=DB_PASSWORD \
     --mount=type=secret,id=db-username,env=DB_USERNAME \
     --mount=type=secret,id=db-name,env=DB_NAME \
+    echo "Dumping database $RDS_DB_NAME..." && \
     mysqldump --single-transaction --set-gtid-purged=OFF --databases -h "$DB_HOST" -u "$DB_USERNAME" -p"$DB_PASSWORD" "$DB_NAME" > rds_dump.sql
-
 
 # Copy the dump file to a temporary location
 RUN cp rds_dump.sql /tmp/rds_dump.sql
@@ -28,6 +28,13 @@ WORKDIR /root
 # Copy the dump file from the dumper stage
 COPY --from=dumper /tmp/rds_dump.sql /docker-entrypoint-initdb.d/rds_dump.sql
 
-# Make the password accessible to runtime
+# Make the password accessible to both build and runtime
 ARG MYSQL_ROOT_PASSWORD
 ENV MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+
+# Enable general logs
+RUN sed -i '/\[mysqld\]/a general_log = ON\ngeneral_log_file = /var/lib/mysql/general.log' /etc/my.cnf
+
+# To follow the logs (optional)
+RUN echo "tail -f /var/lib/mysql/general.log" > /root/follow-logs.sh
+RUN chmod +x /root/follow-logs.sh

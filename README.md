@@ -5,15 +5,16 @@ Dump a MySQL RDS database into a Docker container that can be ran for local dev
 ## Installation
 
 ### Prerequisites
-- [Docker](https://docs.docker.com/get-docker/)
-- [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-- Previous authentication with AWS CLI and setup to access the RDS instance
-- `.env` file with the following variables:
-  - `DB_HOST`
-  - `DB_USER`
-  - `DB_PASS`
-  - `DB_NAME`
-  - `MYSQL_ROOT_PASSWORD`
+
+-   [Docker](https://docs.docker.com/get-docker/)
+-   [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+-   Previous authentication with AWS CLI and setup to access the RDS instance
+-   `.env` file with the following variables:
+    -   `DB_HOST`
+    -   `DB_USER`
+    -   `DB_PASS`
+    -   `DB_NAME`
+    -   `MYSQL_ROOT_PASSWORD`
 
 Clone the repo and `chmod +x dump-n-run.sh`
 
@@ -59,6 +60,15 @@ mysql> use mydbname;
 # Now we can exec the interactive mode
 mysql> exit
 exit
+```
+
+**Logging**
+general_log is enabled by default in the container. You can check the logs with the following command:
+
+There is a oneliner convience script avail at `/root/follow-logs.sh` that is already chmoded +x. When you exec into the container, you can run this script to follow the logs.
+
+```bash
+docker exec -it mylocalsql-cont /bin/bash /root/follow-logs.sh
 ```
 
 Don't forget to stop the container when your done.
