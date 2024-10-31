@@ -20,7 +20,7 @@ Clone the repo and `chmod +x dump-n-run.sh`
 
 ### Build-N(or)-Run
 
-Instructions can be found with `./dump-n-run.sh --help`.
+Instructions can be found with `./dump-n-run.sh --help` .
 
 You can either build the image with no cache to make sure the latest dump is fetched or just run the container with the latest image from Docker Hub.
 
@@ -63,6 +63,7 @@ exit
 ```
 
 **Logging**
+
 general_log is enabled by default in the container. You can check the logs with the following command:
 
 There is a oneliner convience script avail at `/root/follow-logs.sh` that is already chmoded +x. When you exec into the container, you can run this script to follow the logs.
